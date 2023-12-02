@@ -1,0 +1,52 @@
+use core{*}
+
+main :: () {
+    input := os.get_contents("./input.txt");
+    lines := string.split(input, '\n');
+    total : u32 = 0;
+
+    colours := Map.literal(str, u32, .[
+        .{ "red", 0 },
+        .{ "green", 0 },
+        .{ "blue", 0 },
+    ]);
+
+    for line: lines {
+        // reset map values
+        map.put(&colours, "red", 0);
+        map.put(&colours, "green", 0);
+        map.put(&colours, "blue", 0);
+
+        parts := string.split(line, ':');
+
+        raw_sets := string.strip_leading_whitespace(parts[1]);
+        sets := string.split(parts[1], ';');
+
+        for set: sets {
+            s := string.strip_leading_whitespace(set);
+            // printf("{}\n", s);
+            cubes := string.split(s, ',');
+
+            for cube: cubes {
+                c := string.strip_leading_whitespace(cube);
+                details := string.split(c, ' ');
+
+                colour := details[1];
+                prev_count := map.get(&colours, colour) ?? 0;
+                count := cast(u32) conv.str_to_i64(details[0]);
+
+                if (count > prev_count) {
+                    map.put(&colours, colour, count);
+                }
+            }
+        }
+
+        red_count := map.get(&colours, "red") ?? 0;
+        green_count := map.get(&colours, "green") ?? 0;
+        blue_count := map.get(&colours, "blue") ?? 0;
+
+        total += (red_count * green_count * blue_count);
+    }
+
+    printf("TOTAL: {}\n", total);
+}
