@@ -1,0 +1,65 @@
+use core{*}
+
+
+main :: () {
+
+    find_schematics :: (s: &Map(str, str)) -> #auto {
+        printf("IN FIND SCHEMATIC\n");
+
+        above := map.get(s, "above") ?? "";
+        current := map.get(s, "current") ?? "";
+        below := map.get(s, "below") ?? "";
+
+        nums := [] u32;
+
+        for char: current {
+            //num := char;
+            printf("{}\n", char);
+            // TODO: determine how to cast char to string
+            // TODO: determine how to check if char is numeric
+            //if char
+        }
+
+        return nums;
+    }
+
+    input := os.get_contents("./example.txt");
+    lines := string.split(input, '\n');
+    total : u32 = 0;
+
+    // above, current, below
+    s := Map.literal(str, str, .[
+        .{"above", ""},
+        .{"current", ""},
+        .{"below", ""},
+    ]);
+
+    //map.put(&s, "above", lines[-1]);
+    map.put(&s, "current", lines[0]);
+    map.put(&s, "below", lines[1]);
+    //printf("{}\n", s);
+    find_schematics(&s);
+    return;
+
+    for i: 1..lines.count {
+        // map.put(&s, "above", lines[i-1]);
+        // map.put(&s, "current", lines[i]);
+        // map.put(&s, "below", lines[i+1]);
+        printf("{}\n", lines[i]);
+    }
+
+    // for line: lines {
+    //     printf("{}\n", line);
+    //     printf("{}\n", line[2]);
+    //     map.put(&s, "current", line);
+    //
+    //     //chars := line.split();
+    //
+    //     // for char: line {
+    //     //     printf("{}\n", char);
+    //     // }
+    //     return;
+    // }
+
+    printf("TOTAL: {}\n", total);
+}
