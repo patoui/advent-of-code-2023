@@ -31,4 +31,4 @@ for ($i = 0; $i < count($times); $i++) {
     $results *= $r;
 }
 
-echo "TOTOA: $results\n";
+echo "TOTAL: $results\n";
